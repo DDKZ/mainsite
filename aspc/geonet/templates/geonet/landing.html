@@ -14,6 +14,7 @@
 
 {% block "content" %}
     <div id="map"></div>
+    <div id="demo"></div>
     <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
     <script>var map = L.map('map').setView([34.10079, -117.71008], 13);
     L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
@@ -22,5 +23,19 @@
         id: 'theworldbright.cigynx23b0v78vom37eq48g8l',
         accessToken: 'pk.eyJ1IjoidGhld29ybGRicmlnaHQiLCJhIjoiY2lneW54M2k2MHc4dHgxbTByZDZjMGJzYSJ9.dZ0qqOLXMzPZbPTvrMjgDw'
     }).addTo(map);
+    </script>
+    <script>
+        var x = document.getElementById("demo");
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else {
+                x.innerHTML = "Geolocation is not supported by this browser.";
+            }
+        }
+        function showPosition(position) {
+            alert("Latitude: " + position.coords.latitude +
+            "<br>Longitude: " + position.coords.longitude);
+        }
     </script>
 {% endblock %}
