@@ -24,7 +24,21 @@
     <div id="map"></div>
     <div id="demo"></div>
     <script>
-
+        function getCookie(c_name)
+            {
+                if (document.cookie.length > 0)
+                {
+                    c_start = document.cookie.indexOf(c_name + "=");
+                    if (c_start != -1)
+                    {
+                        c_start = c_start + c_name.length + 1;
+                        c_end = document.cookie.indexOf(";", c_start);
+                        if (c_end == -1) c_end = document.cookie.length;
+                        return unescape(document.cookie.substring(c_start,c_end));
+                    }
+                }
+                return "";
+             }
         var map = L.map('map').setView([34.10079, -117.71008], 15);
 
         L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
@@ -34,9 +48,10 @@
             accessToken: 'pk.eyJ1IjoidGhld29ybGRicmlnaHQiLCJhIjoiY2lneW54M2k2MHc4dHgxbTByZDZjMGJzYSJ9.dZ0qqOLXMzPZbPTvrMjgDw'
         }).addTo(map);
 
-        $.ajaxSetup({
+        $.ajaxSetup({   //56ae77f3ddd09baa649c5735cbc27904f7e0d933
                         headers: {
-                            'Authorization': "Token 56ae77f3ddd09baa649c5735cbc27904f7e0d933"
+                            'Authorization': "Token ccf061d573687674b35e3fa4d68d5ca569435fe1",
+                             "X-CSRFToken": getCookie("csrftoken")
                         }
                     })
 
@@ -45,6 +60,7 @@
     <script src="{% static 'js/geonet/self_update_location.js' %}"></script>
     <script src="{% static 'js/geonet/self_push_location.js' %}"></script>
     <script src="{% static 'js/geonet/friend_class.js' %}"></script>
+    <script src="{% static 'js/geonet/get_friends_list.js' %}"></script>
     <script src="{% static 'js/geonet/display_friends.js' %}"></script>
     <script src="{% static 'js/geonet/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/geonet/typeahead.js' %}"></script>
