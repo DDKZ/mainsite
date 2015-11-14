@@ -28,6 +28,13 @@
             id: 'theworldbright.cigynx23b0v78vom37eq48g8l',
             accessToken: 'pk.eyJ1IjoidGhld29ybGRicmlnaHQiLCJhIjoiY2lneW54M2k2MHc4dHgxbTByZDZjMGJzYSJ9.dZ0qqOLXMzPZbPTvrMjgDw'
         }).addTo(map);
+
+        $.ajaxSetup({
+          headers: {
+            'Authorization Token': "56ae77f3ddd09baa649c5735cbc27904f7e0d933"
+          }
+        })
+
     </script>
     <script src="{% static 'js/geonet/self_update_location.js'%}"></script>
     <script src="{% static 'js/geonet/self_push_location.js' %}"></script>
