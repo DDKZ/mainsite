@@ -1,0 +1,9 @@
+<form action="{% url 'friend_request' %}" method="POST">
+    {% csrf_token %}
+    <hr>
+    <b>Find your friend:</b>
+    {{ friend_form }}
+    <button type="submit">Connect</button>
+    <span style="color:red">{{ request_message }}</span>
+    <hr>
+</form>
