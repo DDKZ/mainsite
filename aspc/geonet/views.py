@@ -8,16 +8,18 @@ from aspc.geonet.models import GeoUser
 def home(request):
     if request.user.is_anonymous():
         return guest_login(request,next_page=reverse(home))
-    return render(request, 'geonet/landing.html', {
-
-    })
+    return HttpResponse("hello world")
 
 def requestFriend(request, geouser_id):
+    if request.user.is_anonymous():
+        return HttpResponse("failure")
     other_geouser = get_object_or_404(GeoUser, geouser_id)
     other_geouser.requests.add(request.user.geouser)
     return HttpResponse("success")
 
-def approveRequest(request, geouser_id):
+def approveFriend(request, geouser_id):
+    if request.user.is_anonymous():
+        return HttpResponse("failure")
     geouser = request.user.geouser
     approved_geouser = get_object_or_404(GeoUser, geouser_id)
     if approved_geouser in geouser.requests:

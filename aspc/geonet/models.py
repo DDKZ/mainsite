@@ -7,6 +7,6 @@ class GeoUser(models.Model):
     longitude = models.DecimalField(decimal_places=6, max_digits=10)
     latitude = models.DecimalField(decimal_places=6, max_digits=10)
     friends = models.ManyToManyField("self")
-    requests = models.ManyToManyField("self", related_name="requested_set")
+    requests = models.ManyToManyField("self",related_name="requested_set")
 
 
