@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, url, include
 from aspc.api import views
 from aspc.api.views import MenuList, MenuDiningHallDetail, MenuDayDetail, MenuDiningHallDayDetail, MenuDiningHallDayMealDetail, \
-    MapMe, MapFriends, MapRequestFriends, MapAcceptFriends, MapFriendRequestList
+    MapMe, MapFriends, MapRequestFriends, MapAcceptFriends, MapFriendRequestList, UserList
 
 urlpatterns = [
     url(r'menu/dining_hall/(?P<dining_hall>[^/]+)/day/(?P<day>[^/]+)/meal/(?P<meal>[^/]+)/?$', MenuDiningHallDayMealDetail.as_view()),
@@ -14,6 +14,7 @@ urlpatterns = [
     url(r'maps/friends/accept/(?P<pk>[0-9]+)/?', MapAcceptFriends.as_view()),
     url(r'maps/friends/?$', MapFriends.as_view()),
     url(r'maps/me/?$', MapMe.as_view()),
+    url(r'users/?$', UserList.as_view()),
     url(r'token/?$', views.api_token, name="api_token"),
     url(r'^$', views.api_home, name="api_home"),
 ]

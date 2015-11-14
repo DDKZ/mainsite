@@ -1,6 +1,7 @@
 from itertools import chain
 from django.contrib.auth.models import User
 from django.shortcuts import render
+from aspc.auth2.models import UserSerializer
 from aspc.geonet.models import GeoUser, GeoUserSerializer
 from aspc.menu.models import Menu, MenuSerializer
 from django.http import Http404, HttpResponse
@@ -226,4 +227,17 @@ class MapFriendRequestList(APIView):
         me = GeoUser.objects.filter(user=user).first()
         requests = me.requests.all()
         serializer = GeoUserSerializer(requests, many=True)
+        return Response(serializer.data)
+
+class UserList(APIView):
+    """
+    Shows a list of users
+    """
+    authentication_classes = (SessionAuthentication, BasicAuthentication, TokenAuthentication)
+    permission_classes = (IsAuthenticated,)
+    throttle_classes = (UserRateThrottle,)
+
+    def get(self, request, format=None):
+        users = User.objects.all()
+        serializer = UserSerializer(users, many=True)
         return Response(serializer.data)

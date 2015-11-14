@@ -1,6 +1,7 @@
 import logging
 from django.db import models
 from django.contrib.auth.models import User
+from rest_framework import serializers
 
 logger = logging.getLogger(__name__)
 
@@ -49,3 +50,9 @@ class UserData(models.Model):
 
 	class Meta:
 		verbose_name_plural = 'user data'
+
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('id', 'username')
