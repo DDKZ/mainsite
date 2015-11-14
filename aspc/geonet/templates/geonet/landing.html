@@ -19,10 +19,7 @@
     <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
     <script src="{% static 'js/geonet/Icon.Label.js' %}"></script>
     <script src="{% static 'js/geonet/Icon.Label.Default.js' %}"></script>
-    {% include 'geonet/friend_search.html' %}
-    {% include 'geonet/navigation.html' %}
     <div id="map"></div>
-    <div id="demo"></div>
     <script>
         function getCookie(c_name)
             {
@@ -62,39 +59,4 @@
     <script src="{% static 'js/geonet/friend_class.js' %}"></script>
     <script src="{% static 'js/geonet/get_friends_list.js' %}"></script>
     <script src="{% static 'js/geonet/display_friends.js' %}"></script>
-    <script src="{% static 'js/geonet/bootstrap.min.js' %}"></script>
-    <script src="{% static 'js/geonet/typeahead.js' %}"></script>
-    <script>
-        var artists = new Bloodhound({
-                                         datumTokenizer: Bloodhound.tokenizers.obj.whitespace("username"),
-                                         queryTokenizer: Bloodhound.tokenizers.whitespace,
-                                         remote: {
-                                             url: "http://localhost:8080/api/users/",
-                                             ajax: {
-                                                 beforeSend: function (jqXHR, settings) {
-                                                     jqXHR.setRequestHeader('Authorization', 'Token eae2dbafff8346cae54a63cf8b7a04a2a667efc4');
-                                                 }
-                                             }
-                                         },
-                                         limit: 10
-                                     });
-        artists.initialize();
-
-        $("#search").typeahead({
-                                   hint: true,
-                                   highlight: true,
-                                   minLength: 2
-                               },
-                               {
-                                   name: "result",
-                                   displayKey: "username",
-                                   source: artists.ttAdapter()
-                               }).bind("typeahead:selected", function (obj, datum, name) {
-                                           $(this).data("seletectedId", datum.Id);
-                                       });
-        $(document).on("click", "#someButton", function (e) {
-            e.preventDefault();
-            alert($("#search").data("seletectedId"));
-        });
-    </script>
 {% endblock %}
