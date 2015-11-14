@@ -1,4 +1,7 @@
+from itertools import chain
+from django.contrib.auth.models import User
 from django.shortcuts import render
+from aspc.geonet.models import GeoUser, GeoUserSerializer
 from aspc.menu.models import Menu, MenuSerializer
 from django.http import Http404
 from rest_framework.views import APIView
@@ -108,3 +111,93 @@ class MenuDiningHallDayMealDetail(APIView):
         menus = self.get_object(dining_hall, day, meal)
         serializer = MenuSerializer(menus, many=True)
         return Response(serializer.data)
+
+class GeolocationList(APIView):
+    """
+    List all geolocation list
+    """
+    authentication_classes = (SessionAuthentication, BasicAuthentication, TokenAuthentication)
+    permission_classes = (IsAuthenticated,)
+    throttle_classes = (UserRateThrottle,)
+
+    def get(self, request, format=None):
+        geousers = GeoUser.objects.all()
+        serializer = GeoUserSerializer(geousers, many=True)
+        return Response(serializer.data)
+
+class MapMe(APIView):
+    """
+    Gets your current geolocation and allows you to post your geolocation
+    """
+    authentication_classes = (SessionAuthentication, BasicAuthentication, TokenAuthentication)
+    permission_classes = (IsAuthenticated,)
+    throttle_classes = (UserRateThrottle,)
+
+    def get(self, request, format=None):
+        me = GeoUser.objects.filter(user=request.user).first()
+        serializer = GeoUserSerializer(me)
+        return Response(serializer.data)
+
+    def put(self, request, format=None):
+        me = GeoUser.objects.filter(user=request.user).first()
+        serializer = GeoUserSerializer(me, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class MapFriends(APIView):
+    """
+    Gets the geolocation of your friends
+    """
+    authentication_classes = (SessionAuthentication, BasicAuthentication, TokenAuthentication)
+    permission_classes = (IsAuthenticated,)
+    throttle_classes = (UserRateThrottle,)
+
+    def get(self, request, format=None):
+        me = GeoUser.objects.filter(user=request.user).first()
+        friends = me.friends.all()
+        serializer = GeoUserSerializer(friends, many=True)
+        return Response(serializer.data)
+
+class MapRequestFriends(APIView):
+    """
+    Request friends
+    """
+    authentication_classes = (SessionAuthentication, BasicAuthentication, TokenAuthentication)
+    permission_classes = (IsAuthenticated,)
+    throttle_classes = (UserRateThrottle,)
+
+    def get(self, request, pk, format=None):
+        other_user = User.objects.get(pk=pk)
+        if len(GeoUser.objects.filter(user=request.user)) == 0:
+            GeoUser.objects.create(user=request.user).save()
+        if len(GeoUser.objects.filter(user=other_user)) == 0:
+            GeoUser.objects.create(user=other_user).save()
+        other_geouser = other_user.geouser
+        other_geouser.requests.add(request.user.geouser)
+        other_geouser.save()
+        return Response(status=status.HTTP_201_CREATED)
+
+class MapAcceptFriends(APIView):
+    """
+    Accept friends
+    """
+    authentication_classes = (SessionAuthentication, BasicAuthentication, TokenAuthentication)
+    permission_classes = (IsAuthenticated,)
+    throttle_classes = (UserRateThrottle,)
+
+    def get(self, request, pk, format=None):
+        other_user = User.objects.get(pk=pk)
+        if len(GeoUser.objects.filter(user=request.user)) == 0:
+            GeoUser.objects.create(user=request.user).save()
+        me = request.user.geouser
+        friend = other_user.geouser
+        if friend in me.requests.all():
+            me.requests.remove(friend)
+            me.friends.add(friend)
+            friend.friends.add(me)
+            return Response(status=status.HTTP_201_CREATED)
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)

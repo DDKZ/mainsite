@@ -16,10 +16,11 @@ class Migration(migrations.Migration):
             name='GeoUser',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('longitude', models.DecimalField(max_digits=10, decimal_places=6)),
-                ('latitude', models.DecimalField(max_digits=10, decimal_places=6)),
+                ('longitude', models.DecimalField(default=-117.71008, max_digits=10, decimal_places=6)),
+                ('latitude', models.DecimalField(default=34.10079, max_digits=10, decimal_places=6)),
                 ('friends', models.ManyToManyField(related_name='_geouser_friends_+', to='geonet.GeoUser')),
-                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
+                ('requests', models.ManyToManyField(related_name='_geouser_requests_+', to='geonet.GeoUser')),
+                ('user', models.OneToOneField(related_name='geouser', to=settings.AUTH_USER_MODEL)),
             ],
         ),
     ]
