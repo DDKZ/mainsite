@@ -1,4 +1,5 @@
 var friends = {};
+
 function initializeFriends(){
     $.ajax({
         url: '/api/maps/friends',
@@ -6,9 +7,9 @@ function initializeFriends(){
         success: function(data){
             for(i in data){
                 friend = data[i];
-                friend_object = Friend(friend.longitude, friend.latitude, friend.name, map);
+                friend_object = new Friend(friend.longitude, friend.latitude, friend.username, map);
                 console.log(friend_object);
-                friends[friend.name]=friend_object;
+                friends[friend.username]=friend_object;
             }
         },
         error: function(err){
@@ -16,4 +17,26 @@ function initializeFriends(){
         }
     })
 }
+
+function updateFriends(){
+    $.ajax({
+        url: '/api/maps/friends',
+        method: 'GET',
+        success: function(data){
+            for(i in data){
+                friend = data[i];
+                friend_object = friends[friend.username];
+                friend_object.updateLocation(friend.longitude,friend.latitude);
+            }
+        },
+        error: function(err){
+            console.log(err);
+        }
+    })
+}
+
+
+
 initializeFriends();
+setInterval(updateFriends(),50000);
+
