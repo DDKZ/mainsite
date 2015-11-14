@@ -129,6 +129,7 @@ INSTALLED_APPS = (
 	'filebrowser', # Must be before django.contrib.admin
 	'django.contrib.admin',
 	'django.contrib.admindocs',
+	'autocomplete_light',
 	'django.contrib.redirects',
 	'django.contrib.humanize',
 	'gunicorn',
@@ -154,7 +155,8 @@ INSTALLED_APPS = (
 	'aspc.activityfeed',
 	'aspc.courses',
 	'aspc.menu',
-	'aspc.geonet'
+	'aspc.geonet',
+
 )
 
 # Serializer to use for User sessions. Preferable not to use

@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+import autocomplete_light
 # Create your models here.
 
 class GeoUser(models.Model):
@@ -11,5 +12,11 @@ class GeoUser(models.Model):
 
     def __str__(self):
         return self.user.username
+
+class FriendForm(autocomplete_light.ModelForm):
+    class Meta:
+        model = User
+        fields = ['first_name','last_name']
+        autocomplete_fields = ('first_name','last_name')
 
 

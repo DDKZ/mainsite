@@ -13,6 +13,7 @@
 {% block "page_title" %}ASPC Maps{% endblock %}
 
 {% block "content" %}
+    {% include 'geonet/friend_search.html' %}
     <div id="map"></div>
     <div id="demo"></div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -30,4 +31,5 @@
     </script>
     <script src="{% static 'js/geonet/self_update_location.js'%}"></script>
     <script src="{% static 'js/geonet/self_push_location.js' %}"></script>
+    {% include 'autocomplete_light/static.html' %}
 {% endblock %}
