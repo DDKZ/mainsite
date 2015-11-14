@@ -153,7 +153,8 @@ INSTALLED_APPS = (
 	'aspc.events',
 	'aspc.activityfeed',
 	'aspc.courses',
-	'aspc.menu'
+	'aspc.menu',
+	'aspc.geonet'
 )
 
 # Serializer to use for User sessions. Preferable not to use

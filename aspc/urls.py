@@ -32,6 +32,7 @@ urlpatterns = [
     url(r'^housing/', include('aspc.housing.urls')),
     url(r'^courses/', include('aspc.courses.urls')),
     url(r'^menu/', include('aspc.menu.urls')),
+    url(r'^geonet/', include('aspc.geonet.urls')),
     url(r'^rideshare/', lambda request: HttpResponseRedirect('http://5crideshare.com')),
     url(r'(?P<slug_path>(?:[\w\-\d]+/)+)$', 'aspc.folio.views.page_view', name="folio_page"),
     url(r'^__debug__/', include(debug_toolbar.urls)),
