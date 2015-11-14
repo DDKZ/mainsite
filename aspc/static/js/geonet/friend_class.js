@@ -4,7 +4,7 @@ var Friend = function(longitude,latitude,name,map) {
     this.latitude = latitude;
     this.marker =  L.marker([this.longitude, this.latitude]).addTo(map);
     this.name = name;
-    this.marker.bindPopup(this.name).openPopup();
+    this.marker.bindPopup(this.name);
 
 
     this.updateLocation = function(new_longitude,new_latitude) {
