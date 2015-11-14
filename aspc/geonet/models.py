@@ -1,8 +1,6 @@
 from rest_framework import serializers
 from django.db import models
 from django.contrib.auth.models import User
-import autocomplete_light
-# Create your models here.
 
 class GeoUser(models.Model):
     user = models.OneToOneField(User, related_name="geouser")
@@ -15,9 +13,13 @@ class GeoUser(models.Model):
         return self.user.username
 
 class GeoUserSerializer(serializers.ModelSerializer):
+    id = serializers.SerializerMethodField()
     username = serializers.SerializerMethodField()
     first_name = serializers.SerializerMethodField()
     last_name = serializers.SerializerMethodField()
+
+    def get_id(self, obj):
+        return obj.user.pk
 
     def get_username(self, obj):
         return obj.user.username
@@ -30,7 +32,7 @@ class GeoUserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = GeoUser
-        fields = ('username', 'first_name', 'last_name', 'latitude', 'longitude')
+        fields = ('id', 'username', 'first_name', 'last_name', 'latitude', 'longitude')
 
     def create(self, validated_data):
         username = validated_data.pop('username')
