@@ -7,7 +7,7 @@ function initializeFriends(){
         success: function(data){
             for(i in data){
                 friend = data[i];
-                friend_object = new Friend(friend.longitude, friend.latitude, friend.username, map);
+                friend_object = new Friend(friend.longitude, friend.latitude, friend.first_name+' '+friend.last_name, map);
                 console.log(friend_object);
                 friends[friend.username]=friend_object;
             }
