@@ -4,4 +4,5 @@ from aspc.geonet.views import home
 
 urlpatterns = [
     url(r'^$', home, name="geonet_home"),
+    url(r'^$')
     ]
