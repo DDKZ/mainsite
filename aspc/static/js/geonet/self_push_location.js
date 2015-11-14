@@ -1,6 +1,7 @@
 $.ajax({
-    url: '/geonet/self-update/',
-    data: {'long':long,'lati':lati},
+    url: '/api/maps/me',
+    method: 'POST',
+    data: {'longitude':long,'latitude':lati},
     success: function(){
         console.log('successfully update self location');
     },
