@@ -17,7 +17,7 @@ vagrant/run/
 /static/
 .idea/
 tmp/
-
+ve/
 # Django logging
 /log/
 !/log/.blank
