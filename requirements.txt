@@ -11,10 +11,8 @@ django-filter==0.9.2
 django-grappelli==2.6.3
 django-localflavor==1.0
 django-stdimage==0.5.10
-pyodbc==3.0.3
 python-dateutil==2.2
 vobject==0.8.1c
-psycopg2==2.5.2
 pytz==2013.9
 requests==2.2.0
 python-twitter==1.1
