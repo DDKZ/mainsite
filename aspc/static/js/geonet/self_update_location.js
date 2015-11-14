@@ -19,7 +19,7 @@
         setInterval(function() {
             getLocation();
             if (long !=0 || lati !=0) {
-                map.setView([lati, long], 17);
+                map.setView([lati, long], 20);
                 marker.setLatLng([lati, long]);
                 console.log([lati, long]);
             }

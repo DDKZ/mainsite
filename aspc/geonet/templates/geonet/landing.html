@@ -15,15 +15,19 @@
 {% block "content" %}
     <div id="map"></div>
     <div id="demo"></div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
-    <script>var map = L.map('map').setView([34.10079, -117.71008], 13);
-    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
-        maxZoom: 18,
-        id: 'theworldbright.cigynx23b0v78vom37eq48g8l',
-        accessToken: 'pk.eyJ1IjoidGhld29ybGRicmlnaHQiLCJhIjoiY2lneW54M2k2MHc4dHgxbTByZDZjMGJzYSJ9.dZ0qqOLXMzPZbPTvrMjgDw'
-    }).addTo(map);
+    <script>
+
+        var map = L.map('map').setView([34.10079, -117.71008], 13);
+
+        L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+            attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+            maxZoom: 18,
+            id: 'theworldbright.cigynx23b0v78vom37eq48g8l',
+            accessToken: 'pk.eyJ1IjoidGhld29ybGRicmlnaHQiLCJhIjoiY2lneW54M2k2MHc4dHgxbTByZDZjMGJzYSJ9.dZ0qqOLXMzPZbPTvrMjgDw'
+        }).addTo(map);
     </script>
-    <script src="{% static 'js/geonet/self_update_location.js'%}">
-    </script>
+    <script src="{% static 'js/geonet/self_update_location.js'%}"></script>
+    <script src="{% static 'js/geonet/self_push_location.js' %}"></script>
 {% endblock %}
