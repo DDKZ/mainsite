@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import render
 from aspc.geonet.models import GeoUser, GeoUserSerializer
 from aspc.menu.models import Menu, MenuSerializer
-from django.http import Http404
+from django.http import Http404, HttpResponse
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -22,6 +22,17 @@ def api_home(request):
     return render(request, 'api/landing.html', {
         'token': token
     })
+
+@never_cache
+def api_token(request):
+    current_user = request.user
+    token = None
+    if current_user.is_active:
+        token = Token.objects.get_or_create(user=current_user)[0].key
+    import json
+    jsonToken = {'token': token}
+    data = json.dumps(jsonToken)
+    return HttpResponse(data, content_type='application/json')
 
 class MenuList(APIView):
     """
