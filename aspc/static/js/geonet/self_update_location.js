@@ -14,14 +14,14 @@
         }
 
 
-        var self_marker = L.marker([34.10079, -117.71008]).addTo(map);
-        self_marker.bindPopup("me").openPopup();
+        var self_marker = L.marker([34.10079, -117.71008],
+            { icon: new L.Icon.Label.Default({ labelText: "Me" }) }
+                                    ).addTo(map);
 
         setInterval(function() {
             getLocation();
             if (long !=0 || lati !=0) {
                 self_marker.setLatLng([lati, long]).update();
-                map.setView([lati,long],18);
                 self_push_location(long,lati);
             }
         }, self_update_interval);
