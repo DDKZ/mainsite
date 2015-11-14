@@ -21,6 +21,6 @@
             if (long !=0 || lati !=0) {
                 map.setView([lati, long], 20);
                 marker.setLatLng([lati, long]);
-                console.log([lati, long]);
+                self_push_location(long,lati);
             }
         }, self_update_interval);
