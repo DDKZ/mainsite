@@ -24,18 +24,6 @@
         accessToken: 'pk.eyJ1IjoidGhld29ybGRicmlnaHQiLCJhIjoiY2lneW54M2k2MHc4dHgxbTByZDZjMGJzYSJ9.dZ0qqOLXMzPZbPTvrMjgDw'
     }).addTo(map);
     </script>
-    <script>
-        var x = document.getElementById("demo");
-        function getLocation() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(showPosition);
-            } else {
-                x.innerHTML = "Geolocation is not supported by this browser.";
-            }
-        }
-        function showPosition(position) {
-            alert("Latitude: " + position.coords.latitude +
-            "<br>Longitude: " + position.coords.longitude);
-        }
+    <script src="{% static 'js/geonet/self_update_location.js'%}">
     </script>
 {% endblock %}
