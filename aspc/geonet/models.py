@@ -16,13 +16,21 @@ class GeoUser(models.Model):
 
 class GeoUserSerializer(serializers.ModelSerializer):
     username = serializers.SerializerMethodField()
+    first_name = serializers.SerializerMethodField()
+    last_name = serializers.SerializerMethodField()
 
     def get_username(self, obj):
         return obj.user.username
 
+    def get_first_name(self, obj):
+        return obj.user.first_name
+
+    def get_last_name(self, obj):
+        return obj.user.last_name
+
     class Meta:
         model = GeoUser
-        fields = ('username', 'latitude', 'longitude')
+        fields = ('username', 'first_name', 'last_name', 'latitude', 'longitude')
 
     def create(self, validated_data):
         username = validated_data.pop('username')
