@@ -8,7 +8,7 @@ from aspc.geonet.models import GeoUser
 def home(request):
     if request.user.is_anonymous():
         return guest_login(request,next_page=reverse(home))
-    return HttpResponse("hello world")
+    return render(request,'geonet/landing.html')
 
 def requestFriend(request, geouser_id):
     if request.user.is_anonymous():
