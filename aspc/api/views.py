@@ -201,8 +201,6 @@ class MapAcceptFriends(APIView):
 
     def get(self, request, pk, format=None):
         other_user = User.objects.get(pk=pk)
-        if len(GeoUser.objects.filter(user=request.user)) == 0:
-            GeoUser.objects.create(user=request.user).save()
         me = request.user.geouser
         friend = other_user.geouser
         if friend in me.requests.all():
@@ -212,3 +210,20 @@ class MapAcceptFriends(APIView):
             return Response(status=status.HTTP_201_CREATED)
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
+
+class MapFriendRequestList(APIView):
+    """
+    Shows a list of friends who've requested you
+    """
+    authentication_classes = (SessionAuthentication, BasicAuthentication, TokenAuthentication)
+    permission_classes = (IsAuthenticated,)
+    throttle_classes = (UserRateThrottle,)
+
+    def get(self, request, format=None):
+        user = request.user
+        if len(GeoUser.objects.filter(user=user)) == 0:
+            GeoUser.objects.create(user=user).save()
+        me = GeoUser.objects.filter(user=user).first()
+        requests = me.requests.all()
+        serializer = GeoUserSerializer(requests, many=True)
+        return Response(serializer.data)
